@@ -41,10 +41,25 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     <div className="bg-white p-6 w-96 flex flex-col items-center gap-4">
                         <h3 className="font-bold text-lg">Scan WhatsApp QR</h3>
                         <QRCodeDisplay />
-                        <form method="dialog">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                            <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Close</button>
-                        </form>
+                        <div className="flex justify-end w-full">
+                            <button
+                                onClick={async () => {
+                                    try {
+                                        await fetch('/api/whatsapp', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ action: 'logout' }),
+                                        });
+                                    } catch (error) {
+                                        console.error('Failed to logout', error);
+                                    }
+                                    (document.getElementById('qr-modal') as HTMLDialogElement)?.close();
+                                }}
+                                className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 font-medium"
+                            >
+                                Close & Clear Session
+                            </button>
+                        </div>
                     </div>
                 </dialog>
 
