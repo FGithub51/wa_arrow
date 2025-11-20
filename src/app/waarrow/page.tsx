@@ -90,7 +90,6 @@ export default function WaArrowPage() {
                 {/* Right Column: Editor & Sender */}
                 <div className="lg:col-span-8 flex flex-col gap-6 h-full overflow-hidden">
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex-shrink-0">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-4">Message Template</h2>
                         <MessageEditor
                             value={template.raw}
                             onChange={handleTemplateChange}

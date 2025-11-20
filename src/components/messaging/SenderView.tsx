@@ -17,11 +17,7 @@ export function SenderView({ contact, message, onStatusChange, onNext }: SenderV
     const [isSending, setIsSending] = useState(false);
     const whatsappLink = generateWhatsAppLink(contact.phone, message);
 
-    const handleSend = () => {
-        window.open(whatsappLink, '_blank');
-        onStatusChange(contact.id, 'sent');
-        onNext();
-    };
+
 
     const handleSkip = () => {
         onNext();
@@ -90,13 +86,19 @@ export function SenderView({ contact, message, onStatusChange, onNext }: SenderV
                         <SkipForward size={20} />
                         Skip
                     </button>
-                    <button
-                        onClick={handleSend}
-                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 transition-all"
+                    <a
+                        href={whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                            onStatusChange(contact.id, 'sent');
+                            onNext();
+                        }}
+                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 transition-all no-underline"
                     >
                         <Send size={20} />
                         Send
-                    </button>
+                    </a>
                     <button
                         onClick={handleAutoSend}
                         disabled={isSending}
