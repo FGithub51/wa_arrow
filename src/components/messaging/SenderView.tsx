@@ -78,10 +78,10 @@ export function SenderView({ contact, message, onStatusChange, onNext }: SenderV
                     </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 mt-auto">
+                <div className="flex gap-3 mt-auto">
                     <button
                         onClick={handleSkip}
-                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
                     >
                         <SkipForward size={20} />
                         Skip
@@ -92,7 +92,7 @@ export function SenderView({ contact, message, onStatusChange, onNext }: SenderV
                             onStatusChange(contact.id, 'sent');
                             onNext();
                         }}
-                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 transition-all"
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-green-600 text-white font-bold hover:bg-green-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 transition-all"
                     >
                         <Send size={20} />
                         Send
@@ -100,7 +100,7 @@ export function SenderView({ contact, message, onStatusChange, onNext }: SenderV
                     <button
                         onClick={handleAutoSend}
                         disabled={isSending}
-                        className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg transform active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {isSending ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
                         Auto
