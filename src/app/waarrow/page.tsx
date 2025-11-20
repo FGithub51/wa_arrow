@@ -6,13 +6,13 @@ import { ContactList } from '@/components/contacts/ContactList';
 import { SenderView } from '@/components/messaging/SenderView';
 import { MessageEditor } from '@/components/messaging/MessageEditor';
 import { ContactImporter } from '@/components/contacts/ContactImporter';
-import { Contact, MessageTemplate } from '@/types';
+import { Contact, WAMessageTemplate } from '@/types';
 import { generateWhatsAppLink, processTemplate } from '@/lib/whatsapp';
 
 export default function WaArrowPage() {
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [currentContactId, setCurrentContactId] = useState<string | null>(null);
-    const [template, setTemplate] = useState<MessageTemplate>({ raw: '', processed: '' });
+    const [template, setTemplate] = useState<WAMessageTemplate>({ raw: '', processed: '' });
 
     // Load from local storage on mount
     useEffect(() => {

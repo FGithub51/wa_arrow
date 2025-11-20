@@ -8,7 +8,7 @@ export interface Contact {
   lastSentAt?: Date;
 }
 
-export interface MessageTemplate {
+export interface WAMessageTemplate {
   raw: string;
   processed: string;
 }
