@@ -92,7 +92,7 @@ export default function WaArrowPage() {
                     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex-shrink-0">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4">Message Template</h2>
                         <MessageEditor
-                            template={template.raw}
+                            value={template.raw}
                             onChange={handleTemplateChange}
                         />
                     </div>

@@ -9,6 +9,6 @@ export interface Contact {
 }
 
 export interface MessageTemplate {
-  id: string;
-  content: string; // Supports {name} placeholder
+  raw: string;
+  processed: string;
 }

@@ -7,11 +7,13 @@ import { cn } from '@/lib/utils';
 
 interface ContactListProps {
     contacts: Contact[];
-    onDelete: (id: string) => void;
+    onDelete?: (id: string) => void;
+    onSelect?: (id: string) => void;
+    selectedId?: string | null;
     onClearAll?: () => void;
 }
 
-export function ContactList({ contacts, onDelete, onClearAll }: ContactListProps) {
+export function ContactList({ contacts, onDelete, onSelect, selectedId, onClearAll }: ContactListProps) {
     if (contacts.length === 0) {
         return (
             <div className="text-center py-12 text-gray-500">
@@ -21,7 +23,7 @@ export function ContactList({ contacts, onDelete, onClearAll }: ContactListProps
     }
 
     return (
-        <div className="space-y-2">
+        <div className="space-y-2 overflow-y-auto p-1">
             {onClearAll && contacts.length > 0 && (
                 <div className="flex justify-end mb-2">
                     <button
@@ -36,7 +38,13 @@ export function ContactList({ contacts, onDelete, onClearAll }: ContactListProps
             {contacts.map((contact) => (
                 <div
                     key={contact.id}
-                    className="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-lg hover:shadow-sm transition-shadow"
+                    onClick={() => onSelect?.(contact.id)}
+                    className={cn(
+                        "flex items-center justify-between p-3 border rounded-lg hover:shadow-sm transition-all cursor-pointer",
+                        selectedId === contact.id
+                            ? "bg-blue-50 border-blue-200 shadow-sm ring-1 ring-blue-200"
+                            : "bg-white border-gray-100"
+                    )}
                 >
                     <div className="flex items-center gap-3">
                         <div
@@ -50,7 +58,9 @@ export function ContactList({ contacts, onDelete, onClearAll }: ContactListProps
                             )}
                         />
                         <div>
-                            <p className="font-medium text-gray-900">{contact.name}</p>
+                            <p className={cn("font-medium", selectedId === contact.id ? "text-blue-900" : "text-gray-900")}>
+                                {contact.name}
+                            </p>
                             <p className="text-sm text-gray-500">{contact.phone}</p>
                         </div>
                     </div>
@@ -58,12 +68,17 @@ export function ContactList({ contacts, onDelete, onClearAll }: ContactListProps
                         {contact.status === 'sent' && <CheckCircle size={16} className="text-green-500" />}
                         {contact.status === 'failed' && <XCircle size={16} className="text-red-500" />}
                         {contact.status === 'pending' && <Clock size={16} className="text-gray-300" />}
-                        <button
-                            onClick={() => onDelete(contact.id)}
-                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
-                        >
-                            <Trash2 size={16} />
-                        </button>
+                        {onDelete && (
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onDelete(contact.id);
+                                }}
+                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                            >
+                                <Trash2 size={16} />
+                            </button>
+                        )}
                     </div>
                 </div>
             ))}
